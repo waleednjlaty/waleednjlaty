@@ -1,14 +1,14 @@
 <div align="center">
 
-  <!-- Animated Header Wave Banner -->
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=gradient&customColorList=1,2,9,20&height=180&section=header&text=Hi%20there,%20I'm%20Walid&fontSize=42&fontAlignY=35&animation=twinkling&fontColor=ffffff" width="100%" />
+  <!-- Header Banner -->
+  <img src="https://capsule-render.vercel.app/render?type=waving&color=0:00F2FE,100:4FACFE&height=180&section=header&text=Hi%20there,%20I'm%20Walid&fontSize=42&fontAlignY=38" width="100%" />
 
-  <!-- Multi-line Neon Typing SVG -->
+  <!-- Multi-line Typing SVG -->
   <a href="https://git.io/typing-svg">
     <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=600&height=50&lines=Software+Developer+%26+Problem+Solver;Competitive+Programming+Enthusiast;Building+Fast+%26+Optimized+Solutions;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
   </a>
 
-  <!-- Live Visitor Counter -->
+  <!-- Profile Views Badge -->
   <p align="center">
     <img src="https://komarev.com/ghpvc/?username=waleednjlaty&label=PROFILE+VIEWS&style=flat-square&color=ff007f" alt="Profile Views" />
   </p>
@@ -52,14 +52,15 @@
 ### 📊 GitHub Analytics
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=waleednjlaty&show_icons=true&theme=radical&hide_border=true&title_color=00F2FE&icon_color=FF007F&text_color=ffffff&bg_color=0d1117" height="175" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=waleednjlaty&layout=compact&theme=radical&hide_border=true&title_color=00F2FE&text_color=ffffff&bg_color=0d1117" height="175" alt="Top Languages" />
+  <img src="https://github-readme-stats.vercel.app/api?username=waleednjlaty&show_icons=true&theme=radical&rank_icon=github&border_radius=10" height="165" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=waleednjlaty&layout=compact&theme=radical&border_radius=10" height="165" alt="Top Languages" />
 </div>
 
 <br/>
 
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=waleednjlaty&theme=radical&hide_border=true&background=0d1117&stroke=00F2FE&ring=FF007F&fire=FF007F&currStreakNum=00F2FE" height="175" alt="Streak Stats" />
+  <!-- Working New Streak Stats URL -->
+  <img src="https://streak-stats.demolab.com?user=waleednjlaty&theme=radical&border_radius=10" height="165" alt="Streak Stats" />
 </div>
 
 ---
@@ -73,6 +74,6 @@
 ---
 
 <div align="center">
-  <!-- Footer Wave Banner -->
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=gradient&customColorList=20,9,2,1&height=100&section=footer" width="100%" />
+  <!-- Footer Banner -->
+  <img src="https://capsule-render.vercel.app/render?type=waving&color=0:4FACFE,100:00F2FE&height=100&section=footer" width="100%" />
 </div>
