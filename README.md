@@ -29,9 +29,8 @@
 
 **Languages:**  
 <img src="https://img.shields.io/badge/C%2B%2B-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white" />
-<img src="https://img.shields.io/badge/C-%23A8B9CC.svg?style=for-the-badge&logo=c&logoColor=black" />
+<img src="https://img.shields.io/badge/Java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white" />
 <img src="https://img.shields.io/badge/Python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54" />
-<img src="https://img.shields.io/badge/JavaScript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
 
 <br/>
 
@@ -49,14 +48,14 @@
 ### 📊 GitHub Analytics
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=waleednjlaty&show_icons=true&theme=radical&rank_icon=github&border_radius=10" height="165" alt="GitHub Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=waleednjlaty&layout=compact&theme=radical&border_radius=10" height="165" alt="Top Languages" />
+  <img src="https://github-readme-stats-fast.vercel.app/api?username=waleednjlaty&show_icons=true&theme=radical&border_radius=10&hide_border=true" height="165" alt="GitHub Stats" />
+  <img src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=waleednjlaty&layout=compact&theme=radical&border_radius=10&hide_border=true" height="165" alt="Top Languages" />
 </div>
 
 <br/>
 
 <div align="center">
-  <img src="https://streak-stats.demolab.com?user=waleednjlaty&theme=radical&border_radius=10" height="165" alt="Streak Stats" />
+  <img src="https://streak-stats.demolab.com?user=waleednjlaty&theme=radical&border_radius=10&hide_border=true" height="165" alt="Streak Stats" />
 </div>
 
 ---
