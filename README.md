@@ -1,11 +1,11 @@
 <div align="center">
 
   <!-- Animated Header Wave Banner -->
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=gradient&customColorList=1,2,9,20&height=180&section=header&text=Hi%20there,%20I'm%20YOUR_NAME%20👋&fontSize=42&fontAlignY=35&animation=twinkling&fontColor=ffffff" width="100%" />
+  <img src="https://capsule-render.vercel.app/render?type=waving&color=gradient&customColorList=1,2,9,20&height=180&section=header&text=Hi%20there,%20I'm%20Walid&fontSize=42&fontAlignY=35&animation=twinkling&fontColor=ffffff" width="100%" />
 
   <!-- Multi-line Neon Typing SVG -->
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=600&height=50&lines=Software+Developer+%26+Problem+Solver;Competitive+Programming+Enthusiast;Building+Fast+%26+Optimized+Solutions;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=600&height=50&lines=Software+Developer+%26+Problem+Solver;Competitive+Programming+Enthusiast;Building+Fast+%26+Optimized+Solutions;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
   </a>
 
   <!-- Live Visitor Counter -->
