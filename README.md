@@ -1,14 +1,11 @@
 <div align="center">
 
-  <!-- Header Banner -->
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=0:00F2FE,100:4FACFE&height=180&section=header&text=Hi%20there,%20I'm%20Walid&fontSize=42&fontAlignY=38" width="100%" />
-
-  <!-- Multi-line Typing SVG -->
+  <!-- Main Animated Neon Header -->
   <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=1000&color=00F2FE&center=true&vCenter=true&multiline=false&width=600&height=50&lines=Software+Developer+%26+Problem+Solver;Competitive+Programming+Enthusiast;Building+Fast+%26+Optimized+Solutions;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
+    <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=34&duration=2800&pause=1000&color=00F2FE&center=true&vCenter=true&width=750&height=70&lines=Hi+There%2C+I'm+Walid+AL-Njlat+%F0%9F%91%8B;Software+Developer+%26+Problem+Solver;Competitive+Programming+Enthusiast;Welcome+to+my+GitHub+Profile!" alt="Typing SVG" />
   </a>
 
-  <!-- Profile Views Badge -->
+  <!-- Profile Views Counter -->
   <p align="center">
     <img src="https://komarev.com/ghpvc/?username=waleednjlaty&label=PROFILE+VIEWS&style=flat-square&color=ff007f" alt="Profile Views" />
   </p>
@@ -59,7 +56,6 @@
 <br/>
 
 <div align="center">
-  <!-- Working New Streak Stats URL -->
   <img src="https://streak-stats.demolab.com?user=waleednjlaty&theme=radical&border_radius=10" height="165" alt="Streak Stats" />
 </div>
 
@@ -69,11 +65,4 @@
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/waleednjlaty/waleednjlaty/output/github-contribution-grid-snake-dark.svg" alt="Snake Animation" />
-</div>
-
----
-
-<div align="center">
-  <!-- Footer Banner -->
-  <img src="https://capsule-render.vercel.app/render?type=waving&color=0:4FACFE,100:00F2FE&height=100&section=footer" width="100%" />
 </div>
