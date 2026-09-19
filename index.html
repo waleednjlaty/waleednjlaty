@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#b4232c" />
+  <meta name="description" content="نبض الحياة — نموذج أولي لمنصة تربط المتبرعين بالدم بالحالات المحتاجة بسرعة ووضوح." />
+  <title>نبض الحياة | منصة التبرع بالدم</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+:root{
+  --brand:#b4232c;
+  --brand-dark:#8f1720;
+  --brand-soft:#fff1f2;
+  --brand-soft-2:#fde7e9;
+  --ink:#172033;
+  --muted:#667085;
+  --line:#e6e8ec;
+  --surface:#ffffff;
+  --surface-2:#f7f8fa;
+  --success:#15803d;
+  --success-soft:#eaf8ef;
+  --warning:#b45309;
+  --shadow:0 22px 60px rgba(33,28,35,.10);
+  --shadow-sm:0 10px 28px rgba(32,37,50,.07);
+  --radius:24px;
+  --radius-sm:16px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Tajawal",system-ui,-apple-system,sans-serif;background:#fff;color:var(--ink);line-height:1.65}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid rgba(180,35,44,.22);outline-offset:3px}
+img,svg{display:block}
+svg{width:1.25em;height:1.25em}
+.shell{width:min(1180px,calc(100% - 40px));margin-inline:auto}
+.skip-link{position:fixed;top:-100px;right:20px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:10px;z-index:9999}
+.skip-link:focus{top:12px}
+.topbar{position:sticky;top:0;background:rgba(255,255,255,.88);backdrop-filter:blur(16px);border-bottom:1px solid rgba(230,232,236,.9);z-index:50}
+.nav-wrap{height:78px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.brand{display:flex;align-items:center;gap:11px;border:0;background:none;color:var(--ink);padding:0;text-align:right}
+.brand-mark{width:42px;height:42px;display:grid;place-items:center;background:var(--brand);color:#fff;border-radius:15px;box-shadow:0 8px 20px rgba(180,35,44,.22)}
+.brand-mark svg{width:27px;height:27px}
+.brand-mark.small{width:34px;height:34px;border-radius:12px}
+.brand-copy{display:flex;flex-direction:column;line-height:1.15}
+.brand-copy strong{font-size:20px}
+.brand-copy small{font-size:11px;color:var(--muted);margin-top:5px}
+.desktop-nav{display:flex;gap:6px;align-items:center}
+.desktop-nav button,.mobile-menu button,footer button{border:0;background:none;color:#3f4755;padding:10px 12px;border-radius:10px;font-weight:600}
+.desktop-nav button:hover{background:var(--surface-2);color:var(--brand)}
+.nav-actions{display:flex;align-items:center;gap:9px}
+.primary,.secondary,.ghost,.danger,.google-btn{border:0;border-radius:13px;padding:12px 18px;font-weight:700;transition:.2s ease;min-height:46px}
+.primary{background:var(--brand);color:#fff;box-shadow:0 8px 18px rgba(180,35,44,.18)}
+.primary:hover{background:var(--brand-dark);transform:translateY(-1px)}
+.primary.compact{min-height:42px;padding:9px 15px}
+.primary.large,.secondary.large{min-height:54px;padding:14px 22px}
+.secondary{background:#fff;color:var(--brand);border:1px solid rgba(180,35,44,.32)}
+.secondary:hover{background:var(--brand-soft)}
+.ghost{background:#fff;color:var(--ink);border:1px solid var(--line)}
+.ghost:hover{background:var(--surface-2)}
+.danger{background:#951a22;color:#fff}
+.danger:hover{background:#78141a}
+.full{width:100%}
+.icon-btn{width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:#fff;display:grid;place-items:center;color:var(--ink)}
+.icon-btn svg{width:23px;height:23px}
+.mobile-menu-btn{display:none}
+.mobile-menu{background:#fff;border-top:1px solid var(--line);padding:10px 20px 18px}
+.mobile-menu button{display:block;width:100%;text-align:right;padding:12px}
+.view{display:none}
+.view.active{display:block}
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#fff8f8 0%,#fff 78%);padding:82px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:70px;align-items:center}
+.hero-copy{position:relative;z-index:2}
+.eyebrow,.page-kicker{display:inline-flex;align-items:center;gap:9px;color:var(--brand);font-weight:800;font-size:14px;letter-spacing:.1px}
+.live-dot{width:9px;height:9px;border-radius:50%;background:var(--success);box-shadow:0 0 0 7px rgba(21,128,61,.09)}
+.hero h1{font-size:clamp(42px,5vw,68px);line-height:1.08;letter-spacing:-1.7px;margin:20px 0 22px;max-width:720px}
+.hero h1 span{color:var(--brand)}
+.hero-copy>p{font-size:19px;color:#5c6574;max-width:650px;margin:0 0 30px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+.hero-actions button{display:flex;gap:9px;align-items:center}
+.trust-row{display:flex;gap:42px;margin-top:38px;padding-top:28px;border-top:1px solid #eadadd}
+.trust-row div{display:flex;flex-direction:column}
+.trust-row strong{font-size:21px}
+.trust-row span{color:var(--muted);font-size:13px}
+.hero-visual{position:relative;min-height:465px;display:grid;place-items:center}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
+.orb-a{width:390px;height:390px;background:rgba(180,35,44,.055);right:-160px;top:-80px}
+.orb-b{width:280px;height:280px;background:rgba(21,128,61,.04);left:6%;bottom:-120px}
+.pulse-ring{position:absolute;border:1px solid rgba(180,35,44,.09);border-radius:50%}
+.ring-1{width:430px;height:430px}
+.ring-2{width:330px;height:330px}
+.floating-card{position:relative;z-index:2}
+.emergency-card{width:min(100%,410px);background:#fff;border:1px solid #f0dfe1;border-radius:28px;padding:24px;box-shadow:var(--shadow);transform:rotate(-1.1deg)}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.urgent-badge{background:#fff0f1;color:#9f1520;border:1px solid #ffd7da;font-weight:800;padding:7px 11px;border-radius:999px;font-size:13px}
+.timestamp{font-size:12px;color:var(--muted)}
+.blood-row{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.blood-row strong{font-size:20px}
+.blood-row p{margin:2px 0 0;color:var(--muted);font-size:14px}
+.blood-badge{display:inline-grid;place-items:center;min-width:44px;height:36px;padding:0 10px;border-radius:12px;background:var(--brand-soft);color:var(--brand);font-weight:800}
+.blood-badge.xl{width:76px;height:76px;border-radius:22px;font-size:25px}
+.mini-info{display:flex;gap:10px;margin:18px 0}
+.mini-info span{display:flex;align-items:center;gap:6px;background:var(--surface-2);padding:8px 10px;border-radius:10px;font-size:12px;color:#4b5565}
+.availability-chip{position:absolute;z-index:3;background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm);border-radius:16px;padding:11px 14px;display:flex;gap:10px;align-items:center;min-width:168px}
+.availability-chip div{display:flex;flex-direction:column;line-height:1.4}
+.availability-chip strong{font-size:13px}
+.availability-chip small{font-size:11px;color:var(--muted)}
+.chip-one{top:34px;left:-10px}
+.chip-two{bottom:38px;right:-10px}
+.status-dot{width:10px;height:10px;border-radius:50%}
+.status-dot.online{background:var(--success);box-shadow:0 0 0 5px rgba(21,128,61,.09)}
+.quick-section{padding:90px 0}
+.section-heading{margin-bottom:34px}
+.section-heading.centered{text-align:center;max-width:730px;margin:0 auto 38px}
+.section-heading>span{color:var(--brand);font-weight:800;font-size:14px}
+.section-heading h2{font-size:clamp(30px,3.6vw,46px);line-height:1.2;margin:9px 0 10px;letter-spacing:-.7px}
+.section-heading p{margin:0;color:var(--muted);font-size:17px}
+.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.role-card{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;text-align:right;border:1px solid var(--line);background:#fff;border-radius:24px;padding:26px;color:var(--ink);transition:.2s ease;min-height:180px}
+.role-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-sm);border-color:#e3c7ca}
+.request-role{background:linear-gradient(135deg,#fff 20%,#fff5f5)}
+.role-icon{width:62px;height:62px;border-radius:19px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center}
+.role-icon svg{width:31px;height:31px}
+.role-card h3{font-size:26px;margin:3px 0 4px}
+.role-card p{margin:0;color:var(--muted);font-size:14px;max-width:440px}
+.role-kicker{font-size:12px;color:var(--success);font-weight:800}
+.urgent-text{color:var(--brand)!important}
+.role-arrow{font-size:27px;color:#9aa1ad}
+.soft-bg{background:var(--surface-2);border-block:1px solid #eff1f4}
+.feature-grid{padding:62px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feature-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px}
+.feature-icon{width:46px;height:46px;border-radius:14px;background:#fff0f1;color:var(--brand);display:grid;place-items:center;margin-bottom:18px}
+.feature-card h3{margin:0 0 7px;font-size:18px}
+.feature-card p{margin:0;color:var(--muted);font-size:14px}
+.preview-section{padding:84px 0}
+.request-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.request-card{border:1px solid var(--line);border-radius:20px;padding:20px;background:#fff;transition:.2s ease}
+.request-card:hover{border-color:#dfc8ca;box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.request-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:17px}
+.urgency{font-size:12px;font-weight:800;padding:6px 9px;border-radius:999px}
+.urgency.critical{background:#fff0f1;color:#a2141f}
+.urgency.normal{background:#fff7e7;color:#9b5a00}
+.request-card h3{font-size:20px;margin:0 0 4px}
+.request-card .hospital{color:#4f5868;margin:0 0 15px}
+.request-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+.request-meta span{background:var(--surface-2);border:1px solid #eff0f2;border-radius:10px;padding:7px 9px;color:#5e6674;font-size:12px}
+.request-card .card-actions{display:flex;gap:8px}
+.request-card .card-actions button{flex:1;min-height:42px;padding:9px 12px}
+.center-actions{text-align:center;margin-top:28px}
+.page-hero{background:linear-gradient(180deg,#fff6f6,#fff);border-bottom:1px solid #f1e5e6}
+.compact-page{padding:58px 0 46px}
+.compact-page .shell{display:flex;align-items:end;justify-content:space-between;gap:20px}
+.compact-page h1{font-size:44px;line-height:1.15;margin:10px 0 7px}
+.compact-page p{margin:0;color:var(--muted);font-size:17px}
+.donors-hero{background:linear-gradient(180deg,#f4fbf6,#fff)}
+.page-content{padding:42px 0 80px}
+.filter-bar{display:grid;grid-template-columns:repeat(3,1fr) auto;gap:12px;align-items:end;background:#fff;border:1px solid var(--line);box-shadow:0 9px 28px rgba(26,31,42,.05);border-radius:18px;padding:15px;margin-bottom:24px}
+label{font-weight:700;font-size:13px;color:#454d5b;display:flex;flex-direction:column;gap:7px}
+label small{font-weight:500;color:var(--muted)}
+input,select,textarea{width:100%;border:1px solid #dfe2e7;border-radius:11px;background:#fff;color:var(--ink);padding:11px 12px;min-height:46px;transition:.2s ease}
+textarea{resize:vertical}
+input:hover,select:hover,textarea:hover{border-color:#c9cdd4}
+input:focus,select:focus,textarea:focus{border-color:#c06a70;box-shadow:0 0 0 4px rgba(180,35,44,.07);outline:0}
+.results-head{display:flex;justify-content:space-between;align-items:center;margin:0 2px 18px;font-weight:800}
+.muted{font-weight:500;color:var(--muted);font-size:13px}
+.donor-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.donor-card{border:1px solid var(--line);border-radius:20px;padding:19px;background:#fff;display:flex;flex-direction:column;gap:16px;transition:.2s}
+.donor-card:hover{box-shadow:var(--shadow-sm);transform:translateY(-2px)}
+.donor-head{display:flex;align-items:center;gap:12px}
+.donor-avatar{width:50px;height:50px;border-radius:16px;background:linear-gradient(145deg,#f8d9dc,#fff2f3);color:var(--brand);display:grid;place-items:center;font-weight:800;font-size:18px}
+.donor-head>div:nth-child(2){flex:1}
+.donor-head h3{margin:0;font-size:18px}
+.donor-head p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.status-pill{font-size:11px;border-radius:999px;padding:6px 9px;font-weight:800;white-space:nowrap}
+.status-pill.available{background:var(--success-soft);color:var(--success)}
+.status-pill.paused{background:#f4f4f5;color:#676b73}
+.donor-stats{display:flex;gap:8px}
+.donor-stats span{flex:1;background:var(--surface-2);border-radius:12px;padding:9px;text-align:center;font-size:12px;color:#545d6c}
+.donor-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.donor-actions a{text-decoration:none;display:flex;align-items:center;justify-content:center;min-height:43px;border-radius:11px;font-weight:800;font-size:13px}
+.call-btn{background:var(--brand);color:#fff}
+.whatsapp-btn{background:#eefaf2;color:#147638;border:1px solid #d8f1df}
+.empty-state{grid-column:1/-1;text-align:center;border:1px dashed #d9dde3;border-radius:18px;padding:48px;color:var(--muted);background:#fafbfc}
+.eligibility-layout{display:grid;grid-template-columns:1.25fr .75fr;gap:30px;align-items:start}
+.eligibility-list{display:flex;flex-direction:column;gap:13px}
+.eligibility-list article{display:grid;grid-template-columns:62px 1fr;gap:16px;border:1px solid var(--line);border-radius:18px;padding:20px}
+.eligibility-list article>span{width:52px;height:52px;border-radius:16px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:800}
+.eligibility-list h3{margin:0 0 4px;font-size:19px}
+.eligibility-list p{margin:0;color:var(--muted)}
+.info-panel{position:sticky;top:110px;background:#1f2937;color:#fff;border-radius:24px;padding:28px}
+.info-panel .info-icon{width:50px;height:50px;background:rgba(255,255,255,.1);display:grid;place-items:center;border-radius:15px}
+.info-panel h3{font-size:22px;margin:20px 0 7px}
+.info-panel p{color:#d2d6dc;margin:0 0 24px}
+.about-hero{padding:90px 0;background:linear-gradient(135deg,#fff 40%,#fff3f4)}
+.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.about-grid h1{font-size:50px;line-height:1.15;margin:12px 0 18px}
+.about-grid p{color:var(--muted);font-size:18px}
+.values-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+.values-row span{padding:8px 12px;border-radius:999px;background:#fff;border:1px solid #efdadd;color:var(--brand);font-weight:800;font-size:13px}
+.mission-card{background:var(--brand);color:#fff;border-radius:28px;padding:34px;box-shadow:var(--shadow);transform:rotate(-1deg)}
+.mission-card small{opacity:.7;font-size:13px}
+.mission-card blockquote{font-size:25px;line-height:1.6;margin:14px 0 0;font-weight:700}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.steps article{border:1px solid var(--line);border-radius:20px;padding:24px}
+.steps article>span{width:42px;height:42px;border-radius:13px;background:var(--brand-soft);color:var(--brand);display:grid;place-items:center;font-weight:800}
+.steps h3{font-size:20px;margin:16px 0 5px}
+.steps p{margin:0;color:var(--muted)}
+.profile-page{padding:54px 0 90px;display:grid;grid-template-columns:300px 1fr;gap:28px}
+.profile-side{border:1px solid var(--line);border-radius:22px;padding:24px;height:max-content}
+.avatar{width:78px;height:78px;border-radius:24px;background:linear-gradient(145deg,#f2d4d7,#fff4f5);color:var(--brand);display:grid;place-items:center;font-size:30px;font-weight:800}
+.profile-side h2{margin:15px 0 0}
+.profile-side>p{margin:2px 0 12px;color:var(--muted)}
+.profile-badges{display:flex;gap:8px;margin-bottom:24px}
+.profile-nav{border-top:1px solid var(--line);padding-top:15px;display:flex;flex-direction:column;gap:5px}
+.profile-nav button{border:0;background:#fff;padding:11px 12px;border-radius:10px;text-align:right;font-weight:700;color:#4a5360}
+.profile-nav button.active{background:var(--brand-soft);color:var(--brand)}
+.profile-main{border:1px solid var(--line);border-radius:22px;padding:28px}
+.profile-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.profile-title span{color:var(--brand);font-weight:800;font-size:13px}
+.profile-title h1{margin:3px 0 0}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.full-span{grid-column:1/-1}
+.availability-box{margin-top:20px;border:1px solid var(--line);border-radius:16px;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.availability-box strong{font-size:15px}
+.availability-box p{margin:2px 0 0;color:var(--muted);font-size:13px}
+.switch{flex-direction:row;align-items:center;gap:10px;cursor:pointer;white-space:nowrap}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.switch span{width:48px;height:28px;background:#cfd3d9;border-radius:999px;position:relative;transition:.2s}
+.switch span::after{content:"";position:absolute;top:4px;right:4px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.2);transition:.2s}
+.switch input:checked+span{background:var(--success)}
+.switch input:checked+span::after{transform:translateX(-20px)}
+.switch b{font-size:13px;color:var(--success)}
+footer{background:#18202d;color:#fff;padding:55px 0 20px;margin-top:0}
+.footer-grid{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:40px}
+.light-brand{color:#fff}
+.light-brand .brand-copy small{color:#b9c0ca}
+.footer-brand p{color:#b9c0ca;font-size:13px;max-width:320px}
+footer>div>div:not(.footer-brand){display:flex;flex-direction:column;gap:6px}
+footer strong{font-size:14px;margin-bottom:8px}
+footer button{color:#bbc2cc;text-align:right;padding:4px 0}
+footer button:hover{color:#fff}
+.footer-bottom{margin-top:35px;padding-top:18px;border-top:1px solid rgba(255,255,255,.09);color:#8f99a8;font-size:12px}
+.modal{width:min(680px,calc(100% - 28px));border:0;border-radius:24px;padding:30px;box-shadow:0 30px 100px rgba(15,19,28,.26);max-height:90vh;overflow:auto}
+.modal::backdrop{background:rgba(15,19,28,.55);backdrop-filter:blur(4px)}
+.wide-modal{width:min(790px,calc(100% - 28px))}
+.role-modal{width:min(820px,calc(100% - 28px))}
+.modal-close{position:absolute;left:18px;top:14px;width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;font-size:24px;color:#656d78}
+.modal-brand{display:flex;align-items:center;gap:10px;margin-bottom:22px}
+.auth-tabs{display:grid;grid-template-columns:1fr 1fr;background:var(--surface-2);border-radius:13px;padding:4px;margin-bottom:24px}
+.auth-tabs button{border:0;background:none;border-radius:10px;padding:10px;font-weight:800;color:var(--muted)}
+.auth-tabs button.active{background:#fff;color:var(--brand);box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.auth-panel{display:none}
+.auth-panel.active{display:block}
+.dialog-heading{margin-bottom:20px}
+.dialog-heading.centered{text-align:center}
+.dialog-heading h2{font-size:29px;margin:5px 0}
+.dialog-heading p{margin:0;color:var(--muted)}
+.google-btn{width:100%;background:#fff;border:1px solid var(--line);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:10px}
+.google-btn:hover{background:var(--surface-2)}
+.google-g{display:grid;place-items:center;width:25px;height:25px;border-radius:50%;border:1px solid #dcdfe4;color:#4285f4;font-weight:800}
+.or{display:flex;align-items:center;gap:10px;color:#9298a2;font-size:12px;margin:16px 0}
+.or::before,.or::after{content:"";height:1px;background:var(--line);flex:1}
+#loginForm,#signupForm,#donorForm,#requestForm{display:flex;flex-direction:column;gap:15px}
+.modal-roles{margin-top:25px}
+.modal-roles .role-card{min-height:145px}
+.modal-availability{margin-top:0}
+.form-note{background:#f8f9fb;border:1px solid var(--line);border-radius:12px;padding:11px 13px;color:#616977;font-size:12px}
+.details-head{display:flex;align-items:center;gap:15px;margin:10px 0 20px}
+.details-head h2{margin:0}
+.details-head p{margin:2px 0 0;color:var(--muted)}
+.details-list{display:grid;gap:9px;margin:16px 0}
+.details-list div{display:flex;justify-content:space-between;gap:20px;background:var(--surface-2);padding:10px 12px;border-radius:10px}
+.details-list span{color:var(--muted)}
+.details-note{background:#fff5f5;border:1px solid #f4d8da;border-radius:12px;padding:12px;color:#5d4144;margin:16px 0}
+.toast{position:fixed;left:24px;bottom:24px;z-index:100;background:#18202d;color:#fff;padding:13px 16px;border-radius:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(15px);pointer-events:none;transition:.25s;max-width:min(380px,calc(100% - 48px))}
+.toast.show{opacity:1;transform:translateY(0)}
+@media (max-width:1000px){
+  .desktop-nav{display:none}
+  .mobile-menu-btn{display:grid}
+  .hero-grid,.about-grid{grid-template-columns:1fr;gap:35px}
+  .hero{padding-top:60px}
+  .hero-visual{min-height:430px}
+  .feature-grid{grid-template-columns:1fr 1fr}
+  .request-grid,.donor-grid{grid-template-columns:1fr 1fr}
+  .filter-bar{grid-template-columns:1fr 1fr}
+  .eligibility-layout{grid-template-columns:1fr}
+  .info-panel{position:static}
+  .profile-page{grid-template-columns:1fr}
+  .profile-side{display:grid;grid-template-columns:auto 1fr;column-gap:16px}
+  .profile-side h2{margin-top:4px}
+  .profile-side>p,.profile-badges,.profile-nav{grid-column:2}
+  .footer-grid{grid-template-columns:1.4fr 1fr 1fr}
+  .footer-grid>div:last-child{grid-column:2}
+}
+@media (max-width:720px){
+  .shell{width:min(100% - 28px,1180px)}
+  .desktop-only{display:none}
+  .nav-wrap{height:70px}
+  .brand-copy small{display:none}
+  .brand-mark{width:38px;height:38px;border-radius:13px}
+  .hero{padding:48px 0 50px}
+  .hero h1{font-size:40px;letter-spacing:-1px}
+  .hero-copy>p{font-size:16px}
+  .hero-actions{display:grid;grid-template-columns:1fr}
+  .hero-actions button{justify-content:center}
+  .trust-row{gap:18px;justify-content:space-between}
+  .trust-row strong{font-size:18px}
+  .hero-visual{min-height:385px}
+  .emergency-card{padding:18px}
+  .chip-one{top:3px;left:0}
+  .chip-two{bottom:0;right:0}
+  .quick-section,.preview-section{padding:62px 0}
+  .role-grid,.feature-grid,.request-grid,.donor-grid,.steps{grid-template-columns:1fr}
+  .role-card{min-height:150px;padding:20px}
+  .feature-grid{padding:45px 0}
+  .compact-page{padding:40px 0 34px}
+  .compact-page .shell{align-items:flex-start;flex-direction:column}
+  .compact-page h1{font-size:34px}
+  .page-content{padding-top:28px}
+  .filter-bar{grid-template-columns:1fr}
+  .filter-reset{width:100%}
+  .results-head{align-items:flex-start;gap:4px;flex-direction:column}
+  .eligibility-list article{grid-template-columns:50px 1fr;padding:16px}
+  .eligibility-list article>span{width:44px;height:44px}
+  .about-hero{padding:60px 0}
+  .about-grid h1{font-size:37px}
+  .mission-card blockquote{font-size:21px}
+  .profile-main{padding:20px}
+  .profile-title{align-items:flex-start;gap:12px;flex-direction:column}
+  .form-grid{grid-template-columns:1fr}
+  .full-span{grid-column:auto}
+  .availability-box{align-items:flex-start;flex-direction:column}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .footer-brand{grid-column:1/-1}
+  .footer-grid>div:last-child{grid-column:auto}
+  .modal{padding:24px 18px}
+  .modal .form-grid{grid-template-columns:1fr}
+  .modal-roles .role-card{grid-template-columns:auto 1fr}
+  .modal-roles .role-arrow{display:none}
+}
+@media (max-width:430px){
+  .nav-actions .primary.compact{font-size:12px;padding:8px 10px}
+  .hero h1{font-size:36px}
+  .trust-row span{font-size:11px}
+  .availability-chip{min-width:150px;padding:9px 11px}
+  .blood-badge.xl{width:66px;height:66px}
+  .role-card{grid-template-columns:auto 1fr}
+  .role-arrow{display:none}
+  .donor-actions{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-grid>div:last-child{grid-column:auto}
+}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#main">انتقل إلى المحتوى</a>
+
+  <header class="topbar">
+    <div class="shell nav-wrap">
+      <button class="brand" data-nav="home" aria-label="العودة إلى الرئيسية">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 48 48" role="img">
+            <path d="M24 4C19 13 10 20 10 30a14 14 0 0 0 28 0C38 20 29 13 24 4Z" fill="currentColor"/>
+            <path d="M17 30c1.1 4.2 3.6 6.4 7.6 6.8" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <span class="brand-copy"><strong>نبض الحياة</strong><small>كل قطرة تصنع فرقاً</small></span>
+      </button>
+
+      <nav class="desktop-nav" aria-label="التنقل الرئيسي">
+        <button data-nav="feed">الطلبات</button>
+        <button data-nav="donors">المتبرعون</button>
+        <button data-nav="eligibility">أهلية التبرع</button>
+        <button data-nav="about">من نحن</button>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="ghost desktop-only" data-open-auth="login">تسجيل الدخول</button>
+        <button class="primary compact" data-open-auth="signup">إنشاء حساب</button>
+        <button class="icon-btn mobile-menu-btn" id="menuBtn" aria-label="فتح القائمة" aria-expanded="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="mobile-menu" id="mobileMenu" hidden>
+      <button data-nav="feed">الطلبات</button>
+      <button data-nav="donors">المتبرعون</button>
+      <button data-nav="eligibility">أهلية التبرع</button>
+      <button data-nav="about">من نحن</button>
+      <button data-open-auth="login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="view active" data-view="home">
+      <div class="hero">
+        <div class="hero-orb orb-a"></div>
+        <div class="hero-orb orb-b"></div>
+        <div class="shell hero-grid">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="live-dot"></span> شبكة إنسانية للتواصل السريع</div>
+            <h1>حين تكون الدقيقة فارقة،<br><span>نقرّب المتبرع من المحتاج.</span></h1>
+            <p>منصة عربية تساعد على نشر طلبات الدم، العثور على متبرعين متاحين، والتواصل المباشر معهم حسب فصيلة الدم والموقع.</p>
+            <div class="hero-actions">
+              <button class="primary large" data-open-auth="signup">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3s-6 6.2-6 11a6 6 0 1 0 12 0c0-4.8-6-11-6-11Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9.2 14.6c.4 1.6 1.3 2.5 2.9 2.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+                ابدأ الآن
+              </button>
+              <button class="secondary large" data-nav="feed">شاهد الطلبات العاجلة</button>
+            </div>
+            <div class="trust-row">
+              <div><strong>8</strong><span>فصائل دم</span></div>
+              <div><strong>24/7</strong><span>إمكانية نشر الطلب</span></div>
+              <div><strong>مباشر</strong><span>اتصال وواتساب</span></div>
+            </div>
+          </div>
+
+          <div class="hero-visual" aria-label="معاينة لطلب دم عاجل">
+            <div class="pulse-ring ring-1"></div>
+            <div class="pulse-ring ring-2"></div>
+            <div class="emergency-card floating-card">
+              <div class="card-head">
+                <span class="urgent-badge">عاجل جداً</span>
+                <span class="timestamp">منذ 12 دقيقة</span>
+              </div>
+              <div class="blood-row">
+                <span class="blood-badge xl">O−</span>
+                <div><strong>مطلوب متبرع</strong><p>مستشفى المواساة — دمشق</p></div>
+              </div>
+              <div class="mini-info">
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="9" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg> دمشق</span>
+                <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3.5 9 8 7.4 9.6c1 2.2 2.8 4 5 5l1.6-1.6 4.5 2.4c.4.2.6.7.5 1.1-.5 2-2.3 3.4-4.4 3.2C8.7 19.2 4.8 15.3 4.3 9.4 4.1 7.3 5.5 5.5 7.5 5c.4-.1.9.1 1.1.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg> تواصل فوري</span>
+              </div>
+              <button class="primary full" data-nav="feed">عرض تفاصيل الطلب</button>
+            </div>
+
+            <div class="availability-chip chip-one">
+              <span class="status-dot online"></span>
+              <div><strong>متبرع متاح</strong><small>A+ · قريب منك</small></div>
+            </div>
+            <div class="availability-chip chip-two">
+              <span class="status-dot online"></span>
+              <div><strong>متبرعة متاحة</strong><small>AB− · 3.2 كم</small></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="shell quick-section">
+        <div class="section-heading centered">
+          <span>ابدأ من احتياجك</span>
+          <h2>مساران واضحان، وهدف واحد: إنقاذ الوقت.</h2>
+          <p>بعد إنشاء الحساب تختار المسار المناسب، ويمكنك تغيير دورك لاحقاً من الملف الشخصي.</p>
+        </div>
+
+        <div class="role-grid">
+          <button class="role-card donor-role" data-open-flow="donor">
+            <span class="role-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2s-6.5 6.6-6.5 11.6a6.5 6.5 0 1 0 13 0C18.5 8.6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+            <div><span class="role-kicker">أستطيع المساعدة</span><h3>أنا متبرع</h3><p>سجّل فصيلة دمك وموقعك وحالة توفرّك، واسمح للحالات القريبة بالتواصل معك.</p></div>
+            <span class="role-arrow" aria-hidden="true">←</span>
+          </button>
+
+          <button class="role-card request-role" data-open-flow="request">
+            <span class="role-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.2-9.2C1.1 7.2 4.1 4 7.7 4c2.1 0 3.5 1.1 4.3 2.4C12.8 5.1 14.2 4 16.3 4c3.6 0 6.6 3.2 4.9 7.8C19.5 16.4 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+            <div><span class="role-kicker urgent-text">أحتاج مساعدة</span><h3>أنا بحاجة لمتبرع</h3><p>أنشئ طلباً واضحاً يتضمن الفصيلة، درجة الإلحاح، المستشفى ورقم التواصل.</p></div>
+            <span class="role-arrow" aria-hidden="true">←</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="soft-bg">
+        <div class="shell feature-grid">
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11h16M4 6h16M4 16h10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+            <h3>فلاتر تصل للنتيجة</h3>
+            <p>فصيلة الدم، الدولة، المدينة والمنطقة بدون تشتيت أو خطوات زائدة.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3.5 9 8l-1.6 1.6c1 2.2 2.8 4 5 5L14 13l4.5 2.5c.4.2.6.7.5 1.1-.5 2-2.3 3.4-4.4 3.2C8.7 19.2 4.8 15.3 4.3 9.4 4.1 7.3 5.5 5.5 7.5 5c.4-.1.9.1 1.1.5Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+            <h3>تواصل بدون وسيط</h3>
+            <p>اتصال مباشر أو واتساب من بطاقة المتبرع أو من تفاصيل الحالة.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5 3.5 8.4 8 10 4.5-1.6 8-5 8-10V6l-8-3Z" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m9 12 2 2 4-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+            <h3>خصوصية بحدود واضحة</h3>
+            <p>يمكن عرض صلة القرابة بدل اسم المريض، مع إبقاء بيانات الاتصال اللازمة فقط.</p>
+          </article>
+          <article class="feature-card">
+            <span class="feature-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v9l4 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+            <h3>العاجل يظهر أولاً</h3>
+            <p>الطلبات الحرجة تتميّز نصياً وبصرياً وتتصدر اللوحة العامة.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="shell preview-section">
+        <div class="section-heading">
+          <span>معاينة مباشرة</span>
+          <h2>طلبات قريبة ومتاحة الآن</h2>
+          <p>بيانات تجريبية لغرض عرض النموذج على الفريق.</p>
+        </div>
+        <div class="request-grid" id="homeRequests"></div>
+        <div class="center-actions"><button class="secondary" data-nav="feed">عرض جميع الطلبات</button></div>
+      </section>
+    </section>
+
+    <section class="view" data-view="feed">
+      <div class="page-hero compact-page">
+        <div class="shell">
+          <div>
+            <span class="page-kicker">اللوحة العامة</span>
+            <h1>طلبات الدم الحالية</h1>
+            <p>فلتر حسب الفصيلة أو المدينة، وابدأ بالأكثر إلحاحاً.</p>
+          </div>
+          <button class="primary" data-open-flow="request">+ نشر طلب دم</button>
+        </div>
+      </div>
+      <div class="shell page-content">
+        <div class="filter-bar">
+          <label>فصيلة الدم
+            <select id="feedBloodFilter">
+              <option value="all">كل الفصائل</option>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+            </select>
+          </label>
+          <label>المدينة
+            <select id="feedCityFilter">
+              <option value="all">كل المدن</option>
+              <option>دمشق</option><option>حلب</option><option>درعا</option><option>بيروت</option><option>عمان</option>
+            </select>
+          </label>
+          <label>درجة الإلحاح
+            <select id="feedUrgencyFilter">
+              <option value="all">الكل</option>
+              <option value="critical">حرج وعاجل</option>
+              <option value="normal">عادي / مجدول</option>
+            </select>
+          </label>
+          <button class="ghost filter-reset" id="resetFeed">إعادة الضبط</button>
+        </div>
+        <div class="results-head"><span id="feedCount">0 طلب</span><span class="muted">ترتيب: الأحدث والأكثر إلحاحاً</span></div>
+        <div class="request-grid" id="feedGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" data-view="donors">
+      <div class="page-hero compact-page donors-hero">
+        <div class="shell">
+          <div>
+            <span class="page-kicker">قائمة المتبرعين</span>
+            <h1>أشخاص جاهزون للمساعدة</h1>
+            <p>اختر الفصيلة والموقع وتواصل مباشرة مع المتبرع المناسب.</p>
+          </div>
+          <button class="primary" data-open-flow="donor">سجّل كمتبرع</button>
+        </div>
+      </div>
+      <div class="shell page-content">
+        <div class="filter-bar">
+          <label>فصيلة الدم
+            <select id="donorBloodFilter">
+              <option value="all">كل الفصائل</option>
+              <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+            </select>
+          </label>
+          <label>المدينة
+            <select id="donorCityFilter">
+              <option value="all">كل المدن</option>
+              <option>دمشق</option><option>حلب</option><option>درعا</option><option>بيروت</option><option>عمان</option>
+            </select>
+          </label>
+          <label>الحالة
+            <select id="donorStatusFilter">
+              <option value="all">الكل</option>
+              <option value="available">متاح الآن</option>
+              <option value="paused">غير متاح مؤقتاً</option>
+            </select>
+          </label>
+          <button class="ghost filter-reset" id="resetDonors">إعادة الضبط</button>
+        </div>
+        <div class="results-head"><span id="donorCount">0 متبرع</span><span class="muted">لا يتم عرض بيانات طبية حساسة</span></div>
+        <div class="donor-grid" id="donorGrid"></div>
+      </div>
+    </section>
+
+    <section class="view" data-view="eligibility">
+      <div class="page-hero compact-page">
+        <div class="shell">
+          <div>
+            <span class="page-kicker">هل يمكنك التبرع؟</span>
+            <h1>شروط أهلية عامة وبسيطة</h1>
+            <p>هذه المعلومات للتوعية الأولية فقط، والقرار النهائي يعود للجهة الطبية أو بنك الدم.</p>
+          </div>
+        </div>
+      </div>
+      <div class="shell page-content eligibility-layout">
+        <div class="eligibility-list">
+          <article><span>01</span><div><h3>العمر</h3><p>غالباً بين 18 و65 عاماً، وقد تختلف الحدود حسب البلد وبنك الدم.</p></div></article>
+          <article><span>02</span><div><h3>الوزن</h3><p>عادةً أكثر من 50 كغ مع حالة عامة جيدة.</p></div></article>
+          <article><span>03</span><div><h3>الصحة العامة</h3><p>عدم وجود أعراض عدوى حادة أو مرض معدٍ غير مسيطر عليه وقت التبرع.</p></div></article>
+          <article><span>04</span><div><h3>الأدوية والفاصل الزمني</h3><p>بعض الأدوية والحالات الطبية، وكذلك مدة الفاصل منذ آخر تبرع، قد تؤثر في الأهلية.</p></div></article>
+        </div>
+        <aside class="info-panel">
+          <span class="info-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10v6M12 7.2h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+          <h3>مهم قبل التبرع</h3>
+          <p>لا تعتمد على هذه الصفحة كتشخيص أو موافقة طبية. بنك الدم يجري التقييم النهائي وفق الإرشادات المحلية.</p>
+          <button class="primary full" data-open-flow="donor">تسجيل بياناتي كمتبرع</button>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" data-view="about">
+      <div class="about-hero">
+        <div class="shell about-grid">
+          <div>
+            <span class="page-kicker">من نحن</span>
+            <h1>نبض الحياة: التقنية حين تصبح جسراً بين شخصين.</h1>
+            <p>فكرة المنصة بسيطة: تقليل الوقت الضائع في البحث العشوائي عن متبرع، وجعل الطلب واضحاً وقابلاً للفلترة والتواصل المباشر.</p>
+            <div class="values-row">
+              <span>سرعة</span><span>وضوح</span><span>خصوصية</span><span>إنسانية</span>
+            </div>
+          </div>
+          <div class="mission-card">
+            <small>رؤيتنا</small>
+            <blockquote>“أن يصبح الوصول إلى متبرع مناسب أقرب، أسرع، وأكثر تنظيماً عندما تكون كل دقيقة مهمة.”</blockquote>
+          </div>
+        </div>
+      </div>
+      <div class="shell page-content">
+        <div class="section-heading centered">
+          <span>كيف نعمل؟</span>
+          <h2>ثلاث خطوات فقط</h2>
+        </div>
+        <div class="steps">
+          <article><span>1</span><h3>أنشئ حسابك</h3><p>اسم، بريد، رقم هاتف، دولة — ثم اختر مسارك.</p></article>
+          <article><span>2</span><h3>انشر أو تسجّل</h3><p>طلب دم واضح أو ملف متبرع متاح حسب موقعك.</p></article>
+          <article><span>3</span><h3>تواصل مباشرة</h3><p>اتصال أو واتساب للوصول إلى الشخص المناسب بدون تعقيد.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="view" data-view="profile">
+      <div class="shell profile-page">
+        <aside class="profile-side">
+          <div class="avatar">و</div>
+          <h2>وليد خالد</h2>
+          <p>متبرع مسجّل</p>
+          <div class="profile-badges"><span class="blood-badge">A+</span><span class="status-pill available">متاح الآن</span></div>
+          <nav class="profile-nav">
+            <button class="active">معلوماتي الشخصية</button>
+            <button>سجل التبرعات</button>
+            <button>طلبات الدم</button>
+            <button>الإشعارات</button>
+          </nav>
+        </aside>
+        <div class="profile-main">
+          <div class="profile-title"><div><span>الملف الشخصي</span><h1>بيانات الحساب</h1></div><button class="secondary" id="saveProfile">حفظ التعديلات</button></div>
+          <div class="form-grid">
+            <label>الاسم الكامل<input value="وليد خالد" /></label>
+            <label>البريد الإلكتروني<input value="waleed@example.com" type="email" /></label>
+            <label>رقم الهاتف<input value="+963 9xx xxx xxx" /></label>
+            <label>الدولة<select><option>سوريا</option><option>لبنان</option><option>الأردن</option></select></label>
+            <label>المدينة<input value="درعا" /></label>
+            <label>فصيلة الدم<select><option>A+</option><option>O+</option><option>B+</option></select></label>
+          </div>
+          <div class="availability-box">
+            <div><strong>حالة التبرع</strong><p>أوقف الظهور مؤقتاً إن لم تكن جاهزاً للتبرع.</p></div>
+            <label class="switch"><input type="checkbox" checked><span></span><b>متاح الآن</b></label>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-grid">
+      <div class="footer-brand">
+        <button class="brand light-brand" data-nav="home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48"><path d="M24 4C19 13 10 20 10 30a14 14 0 0 0 28 0C38 20 29 13 24 4Z" fill="currentColor"/></svg>
+          </span>
+          <span class="brand-copy"><strong>نبض الحياة</strong><small>منصة تواصل إنسانية</small></span>
+        </button>
+        <p>نموذج أولي للمراجعة والتطوير، وليس خدمة طبية أو بنك دم رسمي.</p>
+      </div>
+      <div><strong>تصفح</strong><button data-nav="feed">طلبات الدم</button><button data-nav="donors">المتبرعون</button></div>
+      <div><strong>عن المنصة</strong><button data-nav="eligibility">أهلية التبرع</button><button data-nav="about">من نحن</button></div>
+      <div><strong>الحساب</strong><button data-open-auth="signup">إنشاء حساب</button><button data-nav="profile">الملف الشخصي</button></div>
+    </div>
+    <div class="shell footer-bottom">© 2026 نبض الحياة — Prototype UI/UX للمعاينة</div>
+  </footer>
+
+  <dialog id="authDialog" class="modal">
+    <button class="modal-close" aria-label="إغلاق" data-close-dialog="authDialog">×</button>
+    <div class="modal-brand"><span class="brand-mark small" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 4C19 13 10 20 10 30a14 14 0 0 0 28 0C38 20 29 13 24 4Z" fill="currentColor"/></svg></span><strong>نبض الحياة</strong></div>
+    <div class="auth-tabs"><button class="active" data-auth-tab="signup">إنشاء حساب</button><button data-auth-tab="login">تسجيل الدخول</button></div>
+    <div class="auth-panel active" data-auth-panel="signup">
+      <div class="dialog-heading"><h2>أنشئ حسابك</h2><p>خطوة واحدة لتبدأ بالتبرع أو طلب المساعدة.</p></div>
+      <button class="google-btn" id="googleSignup">
+        <span class="google-g">G</span> التسجيل باستخدام Google
+      </button>
+      <div class="or"><span>أو بالبريد الإلكتروني</span></div>
+      <form id="signupForm">
+        <div class="form-grid">
+          <label class="full-span">الاسم الكامل<input required name="name" placeholder="مثال: أحمد محمد" /></label>
+          <label>البريد الإلكتروني<input required name="email" type="email" placeholder="name@example.com" /></label>
+          <label>رقم الهاتف<input required name="phone" type="tel" placeholder="+963 ..." /></label>
+          <label>كلمة المرور<input required name="password" type="password" minlength="6" placeholder="6 أحرف على الأقل" /></label>
+          <label>تأكيد كلمة المرور<input required name="confirm" type="password" minlength="6" placeholder="أعد كتابة كلمة المرور" /></label>
+          <label class="full-span">اختر الدولة
+            <select required name="country">
+              <option value="">اختر الدولة</option>
+              <option>سوريا</option><option>لبنان</option><option>الأردن</option><option>مصر</option><option>السعودية</option><option>العراق</option><option>فلسطين</option><option>الإمارات</option>
+            </select>
+          </label>
+        </div>
+        <button class="primary full" type="submit">إنشاء الحساب</button>
+      </form>
+    </div>
+    <div class="auth-panel" data-auth-panel="login">
+      <div class="dialog-heading"><h2>مرحباً بعودتك</h2><p>ادخل إلى حسابك لمتابعة طلباتك وحالة تبرعك.</p></div>
+      <button class="google-btn" id="googleLogin"><span class="google-g">G</span> تسجيل الدخول باستخدام Google</button>
+      <div class="or"><span>أو</span></div>
+      <form id="loginForm">
+        <label>البريد الإلكتروني أو رقم الهاتف<input required placeholder="name@example.com" /></label>
+        <label>كلمة المرور<input required type="password" placeholder="••••••••" /></label>
+        <button class="primary full" type="submit">تسجيل الدخول</button>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="roleDialog" class="modal role-modal">
+    <button class="modal-close" aria-label="إغلاق" data-close-dialog="roleDialog">×</button>
+    <div class="dialog-heading centered"><span class="page-kicker">تم إنشاء الحساب</span><h2>اختر مسارك</h2><p>يمكنك تنفيذ المسارين في أي وقت لاحقاً.</p></div>
+    <div class="role-grid modal-roles">
+      <button class="role-card donor-role" data-open-flow="donor" data-close-role>
+        <span class="role-icon"><svg viewBox="0 0 24 24"><path d="M12 2s-6.5 6.6-6.5 11.6a6.5 6.5 0 1 0 13 0C18.5 8.6 12 2 12 2Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+        <div><span class="role-kicker">أستطيع المساعدة</span><h3>أنا متبرع</h3></div>
+      </button>
+      <button class="role-card request-role" data-open-flow="request" data-close-role>
+        <span class="role-icon"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.2-9.2C1.1 7.2 4.1 4 7.7 4c2.1 0 3.5 1.1 4.3 2.4C12.8 5.1 14.2 4 16.3 4c3.6 0 6.6 3.2 4.9 7.8C19.5 16.4 12 21 12 21Z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></span>
+        <div><span class="role-kicker urgent-text">أحتاج مساعدة</span><h3>أنا بحاجة لمتبرع</h3></div>
+      </button>
+    </div>
+  </dialog>
+
+  <dialog id="donorDialog" class="modal wide-modal">
+    <button class="modal-close" aria-label="إغلاق" data-close-dialog="donorDialog">×</button>
+    <div class="dialog-heading"><span class="page-kicker">أنا متبرع</span><h2>معلومات التبرع</h2><p>أدخل المعلومات الأساسية التي يحتاجها الشخص الباحث عن متبرع.</p></div>
+    <form id="donorForm">
+      <div class="form-grid">
+        <label>فصيلة الدم
+          <select required><option value="">اختر الفصيلة</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select>
+        </label>
+        <label>المدينة / المنطقة<input required placeholder="مثال: دمشق — المزة" /></label>
+        <label>آخر موعد تبرع <small>(اختياري)</small><input type="date" /></label>
+        <label>رقم الهاتف<input required type="tel" placeholder="+963 ..." /></label>
+      </div>
+      <div class="availability-box modal-availability">
+        <div><strong>الحالة الصحية / التوفر</strong><p>يمكنك تغيير الحالة لاحقاً من ملفك الشخصي.</p></div>
+        <label class="switch"><input type="checkbox" checked><span></span><b>متاح للتبرع حالياً</b></label>
+      </div>
+      <div class="form-note">سيظهر اسمك، فصيلة دمك، موقعك التقريبي وحالة توفرك للباحثين عن متبرع.</div>
+      <button class="primary full" type="submit">تسجيل كمتبرع</button>
+    </form>
+  </dialog>
+
+  <dialog id="requestDialog" class="modal wide-modal">
+    <button class="modal-close" aria-label="إغلاق" data-close-dialog="requestDialog">×</button>
+    <div class="dialog-heading"><span class="page-kicker urgent-text">طلب دم</span><h2>إطلاق نداء استغاثة</h2><p>اكتب ما يحتاجه المتبرع للوصول إلى الحالة بسرعة ووضوح.</p></div>
+    <form id="requestForm">
+      <div class="form-grid">
+        <label>اسم المريض أو صلة القرابة<input required placeholder="مثال: والدي / أحمد م." /></label>
+        <label>فصيلة الدم المطلوبة
+          <select required><option value="">اختر الفصيلة</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select>
+        </label>
+        <label>درجة الإلحاح
+          <select required><option value="">اختر الدرجة</option><option value="critical">حرج وعاجل جداً</option><option value="normal">عادي ومجدول خلال أيام</option></select>
+        </label>
+        <label>رقم هاتف المسؤول عن الحالة<input required type="tel" placeholder="+963 ..." /></label>
+        <label class="full-span">اسم المستشفى والعنوان بالتفصيل<input required placeholder="مثال: مستشفى ...، دمشق، ..." /></label>
+        <label class="full-span">ملاحظات إضافية<textarea rows="4" placeholder="مثال: مطلوب 3 وحدات دم، مريض غسيل كلى..."></textarea></label>
+      </div>
+      <button class="danger full" type="submit">إطلاق نداء استغاثة / طلب دم</button>
+    </form>
+  </dialog>
+
+  <dialog id="requestDetailsDialog" class="modal">
+    <button class="modal-close" aria-label="إغلاق" data-close-dialog="requestDetailsDialog">×</button>
+    <div id="requestDetails"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+const requests = [
+  {id:1,blood:"O-",urgency:"critical",city:"دمشق",hospital:"مستشفى المواساة",time:"منذ 12 دقيقة",patient:"والدي",phone:"+963 9xx xxx 101",note:"مطلوب وحدتا دم قبل العملية.",units:"2 وحدات"},
+  {id:2,blood:"A+",urgency:"critical",city:"درعا",hospital:"المشفى الوطني",time:"منذ 26 دقيقة",patient:"أخي",phone:"+963 9xx xxx 202",note:"حالة إسعافية وتحتاج تبرعاً بأقرب وقت.",units:"3 وحدات"},
+  {id:3,blood:"B+",urgency:"normal",city:"حلب",hospital:"مشفى الجامعة",time:"منذ ساعة",patient:"قريب",phone:"+963 9xx xxx 303",note:"موعد العملية بعد يومين.",units:"1 وحدة"},
+  {id:4,blood:"AB-",urgency:"critical",city:"بيروت",hospital:"مستشفى الجامعة الأميركية",time:"منذ ساعتين",patient:"والدتي",phone:"+961 7x xxx 404",note:"الفصيلة نادرة، يرجى التواصل قبل التوجه.",units:"2 وحدات"},
+  {id:5,blood:"O+",urgency:"normal",city:"عمان",hospital:"مستشفى البشير",time:"منذ 3 ساعات",patient:"مريض غسيل كلى",phone:"+962 7x xxx 505",note:"احتياج مجدول هذا الأسبوع.",units:"1 وحدة"},
+  {id:6,blood:"A-",urgency:"normal",city:"دمشق",hospital:"مستشفى الأسد الجامعي",time:"منذ 5 ساعات",patient:"صديق",phone:"+963 9xx xxx 606",note:"يرجى الاتصال للتأكد من الموعد.",units:"2 وحدات"}
+];
+
+const donors = [
+  {name:"أحمد السالم",blood:"O+",city:"دمشق",area:"المزة",country:"سوريا",status:"available",last:"منذ 4 أشهر",phone:"+963 9xx xxx 111"},
+  {name:"سارة علي",blood:"A+",city:"درعا",area:"المحطة",country:"سوريا",status:"available",last:"منذ 6 أشهر",phone:"+963 9xx xxx 222"},
+  {name:"محمد ناصر",blood:"B+",city:"حلب",area:"الحمدانية",country:"سوريا",status:"paused",last:"منذ شهر",phone:"+963 9xx xxx 333"},
+  {name:"ريم خليل",blood:"AB-",city:"بيروت",area:"الحمرا",country:"لبنان",status:"available",last:"منذ 5 أشهر",phone:"+961 7x xxx 444"},
+  {name:"عمر الحسن",blood:"O-",city:"عمان",area:"الجبيهة",country:"الأردن",status:"available",last:"منذ 7 أشهر",phone:"+962 7x xxx 555"},
+  {name:"نورا ياسين",blood:"A-",city:"دمشق",area:"جرمانا",country:"سوريا",status:"available",last:"منذ 8 أشهر",phone:"+963 9xx xxx 666"}
+];
+
+const views = [...document.querySelectorAll(".view")];
+const menu = document.getElementById("mobileMenu");
+const menuBtn = document.getElementById("menuBtn");
+const toast = document.getElementById("toast");
+
+function showToast(message){
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(window.__toastTimer);
+  window.__toastTimer = setTimeout(()=>toast.classList.remove("show"), 3200);
+}
+
+function navigate(name){
+  views.forEach(v=>v.classList.toggle("active", v.dataset.view===name));
+  window.scrollTo({top:0,behavior:"smooth"});
+  if(menu){ menu.hidden=true; menuBtn?.setAttribute("aria-expanded","false"); }
+}
+
+document.addEventListener("click", e=>{
+  const nav = e.target.closest("[data-nav]");
+  if(nav){ navigate(nav.dataset.nav); }
+  const close = e.target.closest("[data-close-dialog]");
+  if(close){ document.getElementById(close.dataset.closeDialog)?.close(); }
+});
+
+menuBtn?.addEventListener("click", ()=>{
+  menu.hidden = !menu.hidden;
+  menuBtn.setAttribute("aria-expanded", String(!menu.hidden));
+});
+
+function requestCard(r){
+  const urgentText = r.urgency==="critical" ? "حرج وعاجل" : "عادي / مجدول";
+  return `<article class="request-card">
+    <div class="request-top"><span class="urgency ${r.urgency}">${urgentText}</span><span class="timestamp">${r.time}</span></div>
+    <div class="blood-row"><span class="blood-badge">${r.blood}</span><div><h3>مطلوب متبرع ${r.blood}</h3><p class="hospital">${r.hospital}</p></div></div>
+    <div class="request-meta"><span>${r.city}</span><span>${r.units}</span><span>${r.patient}</span></div>
+    <div class="card-actions"><button class="primary" data-request-id="${r.id}">تفاصيل الطلب</button><button class="ghost" data-call="${r.phone}">اتصال</button></div>
+  </article>`;
+}
+
+function renderHome(){
+  document.getElementById("homeRequests").innerHTML=requests.slice(0,3).map(requestCard).join("");
+}
+
+function renderFeed(){
+  const blood=document.getElementById("feedBloodFilter").value;
+  const city=document.getElementById("feedCityFilter").value;
+  const urgency=document.getElementById("feedUrgencyFilter").value;
+  const filtered=requests.filter(r=>(blood==="all"||r.blood===blood)&&(city==="all"||r.city===city)&&(urgency==="all"||r.urgency===urgency));
+  document.getElementById("feedCount").textContent=`${filtered.length} طلب`;
+  document.getElementById("feedGrid").innerHTML=filtered.length?filtered.map(requestCard).join(""):`<div class="empty-state">لا توجد طلبات تطابق الفلاتر الحالية.</div>`;
+}
+
+function donorCard(d){
+  const status=d.status==="available"?"متاح الآن":"غير متاح مؤقتاً";
+  const statusClass=d.status==="available"?"available":"paused";
+  const initials=d.name.split(" ").slice(0,2).map(x=>x[0]).join("");
+  const wa = d.phone.replace(/[^\d]/g,"");
+  return `<article class="donor-card">
+    <div class="donor-head"><div class="donor-avatar">${initials}</div><div><h3>${d.name}</h3><p>${d.country} · ${d.city} · ${d.area}</p></div><span class="blood-badge">${d.blood}</span></div>
+    <div class="donor-stats"><span>آخر تبرع<br><strong>${d.last}</strong></span><span>الحالة<br><strong class="${statusClass==='available'?'':'muted'}">${status}</strong></span></div>
+    <div><span class="status-pill ${statusClass}">${status}</span></div>
+    <div class="donor-actions">
+      <a class="call-btn" href="tel:${d.phone}">اتصل بالمتبرع</a>
+      <a class="whatsapp-btn" href="https://wa.me/${wa}" target="_blank" rel="noopener">تواصل عبر واتساب</a>
+    </div>
+  </article>`;
+}
+function renderDonors(){
+  const blood=document.getElementById("donorBloodFilter").value;
+  const city=document.getElementById("donorCityFilter").value;
+  const status=document.getElementById("donorStatusFilter").value;
+  const filtered=donors.filter(d=>(blood==="all"||d.blood===blood)&&(city==="all"||d.city===city)&&(status==="all"||d.status===status));
+  document.getElementById("donorCount").textContent=`${filtered.length} متبرع`;
+  document.getElementById("donorGrid").innerHTML=filtered.length?filtered.map(donorCard).join(""):`<div class="empty-state">لا يوجد متبرعون يطابقون الفلاتر الحالية.</div>`;
+}
+
+["feedBloodFilter","feedCityFilter","feedUrgencyFilter"].forEach(id=>document.getElementById(id)?.addEventListener("change",renderFeed));
+["donorBloodFilter","donorCityFilter","donorStatusFilter"].forEach(id=>document.getElementById(id)?.addEventListener("change",renderDonors));
+
+document.getElementById("resetFeed")?.addEventListener("click",()=>{
+  ["feedBloodFilter","feedCityFilter","feedUrgencyFilter"].forEach(id=>document.getElementById(id).value="all");renderFeed();
+});
+document.getElementById("resetDonors")?.addEventListener("click",()=>{
+  ["donorBloodFilter","donorCityFilter","donorStatusFilter"].forEach(id=>document.getElementById(id).value="all");renderDonors();
+});
+
+document.addEventListener("click",e=>{
+  const btn=e.target.closest("[data-request-id]");
+  if(btn){
+    const r=requests.find(x=>x.id===Number(btn.dataset.requestId));
+    if(!r)return;
+    document.getElementById("requestDetails").innerHTML=`
+      <div class="details-head"><span class="blood-badge xl">${r.blood}</span><div><span class="urgency ${r.urgency}">${r.urgency==="critical"?"حرج وعاجل جداً":"عادي / مجدول"}</span><h2>طلب متبرع ${r.blood}</h2><p>${r.hospital} — ${r.city}</p></div></div>
+      <div class="details-list">
+        <div><span>صلة المريض</span><strong>${r.patient}</strong></div>
+        <div><span>الاحتياج</span><strong>${r.units}</strong></div>
+        <div><span>وقت النشر</span><strong>${r.time}</strong></div>
+        <div><span>رقم المسؤول</span><strong>${r.phone}</strong></div>
+      </div>
+      <div class="details-note">${r.note}</div>
+      <a class="primary full" style="display:flex;align-items:center;justify-content:center;text-decoration:none" href="tel:${r.phone}">الاتصال بالمسؤول عن الحالة</a>`;
+    document.getElementById("requestDetailsDialog").showModal();
+  }
+  const call=e.target.closest("[data-call]");
+  if(call){ showToast(`في النسخة الفعلية سيتم بدء الاتصال بـ ${call.dataset.call}`); }
+});
+
+const authDialog=document.getElementById("authDialog");
+document.querySelectorAll("[data-open-auth]").forEach(b=>b.addEventListener("click",()=>{
+  setAuthTab(b.dataset.openAuth);
+  authDialog.showModal();
+}));
+function setAuthTab(tab){
+  document.querySelectorAll("[data-auth-tab]").forEach(b=>b.classList.toggle("active",b.dataset.authTab===tab));
+  document.querySelectorAll("[data-auth-panel]").forEach(p=>p.classList.toggle("active",p.dataset.authPanel===tab));
+}
+document.querySelectorAll("[data-auth-tab]").forEach(b=>b.addEventListener("click",()=>setAuthTab(b.dataset.authTab)));
+
+function openFlow(kind){
+  document.getElementById(kind==="donor"?"donorDialog":"requestDialog").showModal();
+}
+document.querySelectorAll("[data-open-flow]").forEach(b=>b.addEventListener("click",()=>{
+  if(b.hasAttribute("data-close-role")) document.getElementById("roleDialog")?.close();
+  openFlow(b.dataset.openFlow);
+}));
+
+document.getElementById("signupForm")?.addEventListener("submit",e=>{
+  e.preventDefault();
+  const fd=new FormData(e.currentTarget);
+  if(fd.get("password")!==fd.get("confirm")){ showToast("كلمتا المرور غير متطابقتين."); return; }
+  authDialog.close();
+  e.currentTarget.reset();
+  document.getElementById("roleDialog").showModal();
+});
+document.getElementById("loginForm")?.addEventListener("submit",e=>{
+  e.preventDefault(); authDialog.close(); showToast("تم تسجيل الدخول في النموذج التجريبي."); navigate("profile");
+});
+document.getElementById("googleSignup")?.addEventListener("click",()=>showToast("Google OAuth يحتاج ربط Backend في النسخة البرمجية النهائية."));
+document.getElementById("googleLogin")?.addEventListener("click",()=>showToast("Google OAuth يحتاج ربط Backend في النسخة البرمجية النهائية."));
+
+document.getElementById("donorForm")?.addEventListener("submit",e=>{
+  e.preventDefault(); document.getElementById("donorDialog").close(); showToast("تم تسجيلك كمتبرع في النموذج التجريبي."); navigate("donors");
+});
+document.getElementById("requestForm")?.addEventListener("submit",e=>{
+  e.preventDefault(); document.getElementById("requestDialog").close(); showToast("تم نشر طلب الدم في النموذج التجريبي."); navigate("feed");
+});
+document.getElementById("saveProfile")?.addEventListener("click",()=>showToast("تم حفظ التعديلات في النموذج التجريبي."));
+
+document.querySelectorAll(".switch input").forEach(i=>i.addEventListener("change",()=>{
+  const label=i.closest(".switch").querySelector("b");
+  if(label) label.textContent=i.checked ? (label.textContent.includes("التبرع")?"متاح للتبرع حالياً":"متاح الآن") : "غير متاح مؤقتاً";
+}));
+
+renderHome(); renderFeed(); renderDonors();
+
+</script>
+</body>
+</html>
